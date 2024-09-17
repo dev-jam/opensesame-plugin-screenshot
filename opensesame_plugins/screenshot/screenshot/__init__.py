@@ -18,6 +18,6 @@ controls = [
         "tooltip": "Filename"
     }, {
         "type": "text",
-        "label": "<small>Screenshot version 0.1.0</small>"
+        "label": "<small>Screenshot version 0.1.1</small>"
     }
 ]
