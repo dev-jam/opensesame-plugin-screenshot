@@ -21,6 +21,10 @@ class Screenshot(Item):
     def prepare(self):
         super().prepare()
         self.verbose = self.var.verbose
+
+        if self.var.canvas_backend != 'psycho':
+            raise OSException('Screenshot plugin only supports PsychoPy as backend')
+
         self.experiment_path = Path(os.path.normpath(os.path.dirname(self.var.logfile)))
         self.path = self.experiment_path / 'screenshots' / ('subject-' + str(self.var.subject_nr))
         Path(self.path).mkdir(parents=True, exist_ok=True)
