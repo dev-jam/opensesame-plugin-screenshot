@@ -7,12 +7,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+
+## [0.1.1] - 2024-09-18
+
+- check for psychopy as backend
     
 ## [0.1.0] - 2024-09-18
 
 Initial release of OpenSesame Screenshot plugin.
     
 
-
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.1.0...HEAD
-
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.1.1...HEAD
+[0.1.1]: : https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.1.0...0.1.1
