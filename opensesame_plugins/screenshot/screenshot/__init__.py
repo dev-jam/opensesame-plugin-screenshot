@@ -11,6 +11,18 @@ controls = [
         "name": "checkbox_verbose_mode",
         "tooltip": "Run in verbose mode"
     },  {
+        "type": "checkbox",
+        "var": "window_stim",
+        "label": "Stimulus display",
+        "name": "checkbox_window_stim",
+        "tooltip": "Stimulus display"
+    },  {
+        "type": "checkbox",
+        "var": "window_full",
+        "label": "Composite of all displays",
+        "name": "checkbox_window_full",
+        "tooltip": "Composite of all displays"
+    },  {
         "type": "line_edit",
         "var": "filename_screenshot",
         "label": "Filename",

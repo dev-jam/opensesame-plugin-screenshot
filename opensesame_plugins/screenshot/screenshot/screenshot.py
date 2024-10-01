@@ -10,12 +10,15 @@ from libopensesame.exceptions import OSException
 from libopensesame.oslogging import oslogger
 from pathlib import Path
 import os
+from PIL import ImageGrab
 
 
 class Screenshot(Item):
 
     def reset(self):
-        self.var.verbose = 'no'
+        self.var.verbose = 'yes'
+        self.var.window_stim = 'yes'
+        self.var.window_full = 'no'
         self.var.filename_screenshot = ''
 
     def prepare(self):
@@ -26,15 +29,27 @@ class Screenshot(Item):
             raise OSException('Screenshot plugin only supports PsychoPy as backend')
 
         self.experiment_path = Path(os.path.normpath(os.path.dirname(self.var.logfile)))
-        self.path = self.experiment_path / 'screenshots' / ('subject-' + str(self.var.subject_nr))
-        Path(self.path).mkdir(parents=True, exist_ok=True)
+
+        if self.var.window_stim == 'yes':
+            self.path_stim = self.experiment_path / 'screenshots_stim' / ('subject-' + str(self.var.subject_nr))
+            Path(self.path_stim).mkdir(parents=True, exist_ok=True)
+        if self.var.window_full == 'yes':
+            self.path_full = self.experiment_path / 'screenshots_all' / ('subject-' + str(self.var.subject_nr))
+            Path(self.path_full).mkdir(parents=True, exist_ok=True)
 
     def run(self):
         self.set_item_onset()
-        fname =  self.path / self.var.filename_screenshot
-        self.experiment.window.getMovieFrame()
-        self.experiment.window.saveMovieFrames(fname)
-        self._show_message('Screenshot saved to: %s' % fname)
+
+        if self.var.window_stim == 'yes':
+            fname_stim =  self.path_stim / self.var.filename_screenshot
+            image_stim = self.experiment.window._getFrame()
+            image_stim.save(fname_stim)
+            self._show_message('Screenshot saved to: %s' % fname_stim)
+        if self.var.window_full == 'yes':
+            fname_full =  self.path_full / self.var.filename_screenshot
+            image_full = ImageGrab.grab()
+            image_full.save(fname_full)
+            self._show_message('Screenshot saved to: %s' % fname_full)
 
     def _show_message(self, message):
         oslogger.debug(message)
