@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "opensesame-plugin-screenshot"
-version = "0.1.1"
+version = "0.2.0"
 description = "An OpenSesame Plugin for saving screenshots of stimuli and other screens within an experiment."
 authors = ["Bob Rosbag <debian@bobrosbag.nl>"]
 readme = "README.md"
