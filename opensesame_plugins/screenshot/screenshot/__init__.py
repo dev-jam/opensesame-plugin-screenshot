@@ -27,6 +27,7 @@ controls = [
         "var": "filename_screenshot",
         "label": "Filename",
         "name": "line_edit_filename_screenshot",
+        "info": "Filename with extension, extension determines the picture format (.png; .jpg; etc.)",
         "tooltip": "Filename"
     }, {
         "type": "text",
