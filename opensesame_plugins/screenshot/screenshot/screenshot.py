@@ -47,7 +47,7 @@ class Screenshot(Item):
             self._show_message('Screenshot saved to: %s' % fname_stim)
         if self.var.window_full == 'yes':
             fname_full =  self.path_full / self.var.filename_screenshot
-            image_full = ImageGrab.grab()
+            image_full = ImageGrab.grab(all_screens=True)
             image_full.save(fname_full)
             self._show_message('Screenshot saved to: %s' % fname_full)
 
