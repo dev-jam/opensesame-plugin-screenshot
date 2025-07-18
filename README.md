@@ -6,8 +6,7 @@ OpenSesame Plug-in: Screenshot
 Copyright, 2024, Bob Rosbag  
 
 
-## 1. About
---------
+## About
 
 This plug-in can make screenshots of stimuli and other screens and save it to png in the folder 'screenshots/subject-*/filename'. 
 
@@ -17,19 +16,16 @@ This plug-in has two options:
 - *Screenshot file name*.
 
 
-## 2. LICENSE
-----------
+## License
 
-The Screenshot plug-in is distributed under the terms of the GNU General Public License 3.
-The full license should be included in the file COPYING, or can be obtained from
+This software is distributed under the terms of the GNU General Public License 3. The full license should be included in the file `COPYING`, or can be obtained from:
 
 - <http://www.gnu.org/licenses/gpl.txt>
 
 This plug-in contains works of others. Icons are derivatives of the Faenza icon theme.
+
   
-  
-## 3. Documentation
-----------------
+## Documentation
 
 Installation instructions and documentation on OpenSesame are available on the documentation website:
 
