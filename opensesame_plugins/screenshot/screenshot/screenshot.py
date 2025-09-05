@@ -46,10 +46,10 @@ class Screenshot(Item):
         self.experiment_path = Path(os.path.normpath(os.path.dirname(self.var.logfile)))
 
         if self.var.window_stim == 'yes':
-            self.path_stim = self.experiment_path / 'screenshots_stim' / ('subject-' + str(self.var.subject_nr))
+            self.path_stim = self.experiment_path / 'screenshots_stim' / f'subject-{self.var.subject_nr}'
             Path(self.path_stim).mkdir(parents=True, exist_ok=True)
         if self.var.window_full == 'yes':
-            self.path_full = self.experiment_path / 'screenshots_all' / ('subject-' + str(self.var.subject_nr))
+            self.path_full = self.experiment_path / 'screenshots_all' / f'subject-{self.var.subject_nr}'
             Path(self.path_full).mkdir(parents=True, exist_ok=True)
 
     def run(self):
@@ -59,12 +59,12 @@ class Screenshot(Item):
             fname_stim =  self.path_stim / self.var.filename_screenshot
             image_stim = self.experiment.window._getFrame()
             image_stim.save(fname_stim)
-            self._show_message('Screenshot saved to: %s' % fname_stim)
+            self._show_message(f'Screenshot saved to: {fname_stim}')
         if self.var.window_full == 'yes':
             fname_full =  self.path_full / self.var.filename_screenshot
             image_full = ImageGrab.grab(all_screens=True)
             image_full.save(fname_full)
-            self._show_message('Screenshot saved to: %s' % fname_full)
+            self._show_message(f'Screenshot saved to: {fname_full}')
 
     def _show_message(self, message):
         oslogger.debug(message)
