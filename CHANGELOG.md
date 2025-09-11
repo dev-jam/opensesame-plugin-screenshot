@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 
+## [0.6.0] - 2025-09-12
+
+- added capture of stim display with PIL
+
 ## [0.5.0] - 2025-09-05
 
 - convert string handling to f-strings
@@ -35,7 +39,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 Initial release of OpenSesame Screenshot plugin.
     
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.5.0...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.6.0...HEAD
+[0.6.0]: : https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.5.0...0.6.0
 [0.5.0]: : https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.4.0...0.5.0
 [0.4.0]: : https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.3.0...0.4.0
 [0.3.0]: : https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.2.0...0.3.0
