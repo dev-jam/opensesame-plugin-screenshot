@@ -12,16 +12,22 @@ controls = [
         "tooltip": "Run in verbose mode"
     },  {
         "type": "checkbox",
-        "var": "window_stim",
-        "label": "Stimulus display",
-        "name": "checkbox_window_stim",
-        "tooltip": "Stimulus display"
+        "var": "window_stim_psycho",
+        "label": "Stimulus display (PsychoPy)",
+        "name": "checkbox_window_stim_psycho",
+        "tooltip": "Stimulus display (PsychoPy)"
     },  {
         "type": "checkbox",
-        "var": "window_full",
-        "label": "Composite of all displays",
-        "name": "checkbox_window_full",
-        "tooltip": "Composite of all displays"
+        "var": "window_stim_pil",
+        "label": "Stimulus display (PIL)",
+        "name": "checkbox_window_stim_pil",
+        "tooltip": "Stimulus display (PIL)"
+    },  {
+        "type": "checkbox",
+        "var": "window_full_pil",
+        "label": "Composite of all displays (PIL)",
+        "name": "checkbox_window_full_pil",
+        "tooltip": "Composite of all displays (PIL)"
     },  {
         "type": "line_edit",
         "var": "filename_screenshot",

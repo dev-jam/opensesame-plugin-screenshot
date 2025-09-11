@@ -26,14 +26,16 @@ from libopensesame.oslogging import oslogger
 from pathlib import Path
 import os
 from PIL import ImageGrab
+from screeninfo import get_monitors
 
 
 class Screenshot(Item):
 
     def reset(self):
         self.var.verbose = 'yes'
-        self.var.window_stim = 'yes'
-        self.var.window_full = 'no'
+        self.var.window_stim_psycho = 'yes'
+        self.var.window_stim_pil = 'yes'
+        self.var.window_full_pil = 'no'
         self.var.filename_screenshot = ''
 
     def prepare(self):
@@ -45,26 +47,40 @@ class Screenshot(Item):
 
         self.experiment_path = Path(os.path.normpath(os.path.dirname(self.var.logfile)))
 
-        if self.var.window_stim == 'yes':
-            self.path_stim = self.experiment_path / 'screenshots_stim' / f'subject-{self.var.subject_nr}'
-            Path(self.path_stim).mkdir(parents=True, exist_ok=True)
-        if self.var.window_full == 'yes':
-            self.path_full = self.experiment_path / 'screenshots_all' / f'subject-{self.var.subject_nr}'
-            Path(self.path_full).mkdir(parents=True, exist_ok=True)
+        if self.var.window_stim_psycho == 'yes':
+            self.path_stim_psycho = self.experiment_path / 'screenshots_stim_psycho' / f'subject-{self.var.subject_nr}'
+            Path(self.path_stim_psycho).mkdir(parents=True, exist_ok=True)
+        if self.var.window_stim_pil == 'yes':
+            self.path_stim_pil = self.experiment_path / 'screenshots_stim_pil' / f'subject-{self.var.subject_nr}'
+            Path(self.path_stim_pil).mkdir(parents=True, exist_ok=True)
+        if self.var.window_full_pil == 'yes':
+            self.path_full_pil = self.experiment_path / 'screenshots_full_pil' / f'subject-{self.var.subject_nr}'
+            Path(self.path_full_pil).mkdir(parents=True, exist_ok=True)
+
+        monitor1 = get_monitors()[0]
+        self.x1 = monitor1.x
+        self.y1 = monitor1.y
+        self.x2 = monitor1.x + monitor1.width
+        self.y2 = monitor1.y + monitor1.height
 
     def run(self):
         self.set_item_onset()
 
-        if self.var.window_stim == 'yes':
-            fname_stim =  self.path_stim / self.var.filename_screenshot
-            image_stim = self.experiment.window._getFrame()
-            image_stim.save(fname_stim)
-            self._show_message(f'Screenshot saved to: {fname_stim}')
+        if self.var.window_stim_psycho == 'yes':
+            fname_stim_psycho =  self.path_stim_psycho / self.var.filename_screenshot
+            image_stim_psycho = self.experiment.window._getFrame()
+            image_stim_psycho.save(fname_stim_psycho)
+            self._show_message(f'Screenshot saved to: {fname_stim_psycho}')
         if self.var.window_full == 'yes':
-            fname_full =  self.path_full / self.var.filename_screenshot
-            image_full = ImageGrab.grab(all_screens=True)
-            image_full.save(fname_full)
-            self._show_message(f'Screenshot saved to: {fname_full}')
+            fname_stim_pil =  self.path_stim_pil / self.var.filename_screenshot
+            image_stim_pil = ImageGrab.grab(bbox=(self.x1, self.y1, self.x2, self.y2))
+            image_stim_pil.save(fname_stim_pil)
+            self._show_message(f'Screenshot saved to: {fname_stim_pil}')
+        if self.var.window_full == 'yes':
+            fname_full_pil =  self.path_full_pil / self.var.filename_screenshot
+            image_full_pil = ImageGrab.grab(all_screens=True)
+            image_full_pil.save(fname_full_pil)
+            self._show_message(f'Screenshot saved to: {fname_full_pil}')
 
     def _show_message(self, message):
         oslogger.debug(message)
