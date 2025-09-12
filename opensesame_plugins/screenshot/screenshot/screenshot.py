@@ -71,12 +71,12 @@ class Screenshot(Item):
             image_stim_psycho = self.experiment.window._getFrame()
             image_stim_psycho.save(fname_stim_psycho)
             self._show_message(f'Screenshot saved to: {fname_stim_psycho}')
-        if self.var.window_full == 'yes':
+        if self.var.window_stim_pil == 'yes':
             fname_stim_pil =  self.path_stim_pil / self.var.filename_screenshot
             image_stim_pil = ImageGrab.grab(bbox=(self.x1, self.y1, self.x2, self.y2))
             image_stim_pil.save(fname_stim_pil)
             self._show_message(f'Screenshot saved to: {fname_stim_pil}')
-        if self.var.window_full == 'yes':
+        if self.var.window_full_pil == 'yes':
             fname_full_pil =  self.path_full_pil / self.var.filename_screenshot
             image_full_pil = ImageGrab.grab(all_screens=True)
             image_full_pil.save(fname_full_pil)
