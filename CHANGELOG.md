@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.7.2] - 2026-10-17
 
 - fixed regressions from 0.7.0: the "saved to" message shows the normalised log folder again, and the PsychoPy checkbox keeps its original tooltip with the PsychoPy backend
 - note on 0.7.0: the filename is read once per screenshot, so all captures get the same name; before 0.7.0 an expression such as `{clock.time()}` was evaluated per capture
@@ -60,7 +60,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 Initial release of OpenSesame Screenshot plugin.
 
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.7.1...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.7.2...HEAD
+[0.7.2]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.7.1...0.7.2
 [0.7.1]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.7.0...0.7.1
 [0.7.0]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.6.0...0.6.1
