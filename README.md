@@ -8,12 +8,17 @@ Copyright, 2024, Bob Rosbag
 
 ## About
 
-This plug-in can make screenshots of stimuli and other screens and save it to png in the folder 'screenshots/subject-*/filename'. 
+This plug-in saves screenshots of stimuli and other screens within an experiment.
 
-This plug-in has two options:
+The screenshots are saved in the folder of the log file, in a subfolder per capture method and subject, for example `screenshots_stim_psycho/subject-1/filename.png`.
 
-- *Verbose mode* for testing experiments.
-- *Screenshot file name*.
+This plug-in has the following options:
+
+- *Verbose mode*: print the path of each saved screenshot.
+- *Stimulus display (PsychoPy)*: capture the PsychoPy window, saved in `screenshots_stim_psycho`. Only available with the PsychoPy backend.
+- *Stimulus display (PIL)*: capture the first monitor with PIL, saved in `screenshots_stim_pil`.
+- *Composite of all displays (PIL)*: capture all monitors with PIL, saved in `screenshots_full_pil`.
+- *Filename*: the filename with extension; the extension determines the picture format (`.png`, `.jpg`, etc.). Variables can be used, e.g. `trial_[count_trial_sequence].png`.
 
 
 ## License
