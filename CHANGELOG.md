@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.7.0] - 2026-10-17
 
 - fixed unclear error when the filename is empty or has no or an unsupported extension
 - the PIL options now also work with other backends than PsychoPy; the PsychoPy option is then disabled in the GUI and skipped with a warning
@@ -51,7 +51,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 Initial release of OpenSesame Screenshot plugin.
 
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.6.1...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.7.0...HEAD
+[0.7.0]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.5.0...0.6.0
 [0.5.0]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.4.0...0.5.0
