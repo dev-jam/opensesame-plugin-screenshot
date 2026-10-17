@@ -1,5 +1,7 @@
 """Take screenshot of stimulus"""
 
+from .. import __version__
+
 # The category determines the group for the plugin in the item toolbar
 category = "Screenshot"
 # Defines the GUI controls
@@ -37,6 +39,6 @@ controls = [
         "tooltip": "Filename"
     }, {
         "type": "text",
-        "label": "<small>Screenshot version 0.7.0</small>"
+        "label": f"<small>Screenshot version {__version__}</small>"
     }
 ]
