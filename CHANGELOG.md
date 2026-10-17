@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [0.7.1] - 2026-10-17
 
 - the version label in the item is read from the installed package, so the version is only set in `pyproject.toml`
 
@@ -55,7 +55,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 Initial release of OpenSesame Screenshot plugin.
 
 
-[Unreleased]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.7.0...HEAD
+[Unreleased]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.7.1...HEAD
+[0.7.1]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.7.0...0.7.1
 [0.7.0]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.6.1...0.7.0
 [0.6.1]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.6.0...0.6.1
 [0.6.0]: https://github.com/dev-jam/opensesame-plugin-screenshot/compare/0.5.0...0.6.0
