@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 - fixed unclear error when the filename is empty or has no or an unsupported extension
+- the PIL options now also work with other backends than PsychoPy; the PsychoPy option is then disabled in the GUI and skipped with a warning
+- the subject folder now uses the subject number at the time of the screenshot, so an earlier inline script can change it
+- the monitor size is only looked up when the PIL stimulus display option is on
+- code cleanup: removed py3compat, read settings once in prepare, removed duplicate code
 
 ## [0.6.1] - 2025-09-12
 

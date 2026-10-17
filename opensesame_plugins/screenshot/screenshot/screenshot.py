@@ -18,13 +18,11 @@ along with OpenSesame.  If not, see <http://www.gnu.org/licenses/>.
 __author__ = "Bob Rosbag"
 __license__ = "GPLv3"
 
-from libopensesame.py3compat import *
+from pathlib import Path
 from libopensesame.item import Item
 from libqtopensesame.items.qtautoplugin import QtAutoPlugin
 from libopensesame.exceptions import OSException
 from libopensesame.oslogging import oslogger
-from pathlib import Path
-import os
 from PIL import Image, ImageGrab
 from screeninfo import get_monitors
 
@@ -40,55 +38,56 @@ class Screenshot(Item):
 
     def prepare(self):
         super().prepare()
-        self.verbose = self.var.verbose
+        self._init_var()
 
-        if self.var.canvas_backend != 'psycho':
-            raise OSException('Screenshot plugin only supports PsychoPy as backend')
+        if self.window_stim_psycho and self.var.canvas_backend != 'psycho':
+            oslogger.warning('Screenshot: stimulus display (PsychoPy) is skipped, it needs the PsychoPy backend')
+            self.window_stim_psycho = False
 
-        self.experiment_path = Path(os.path.normpath(os.path.dirname(self.var.logfile)))
+        self.log_folder = Path(self.var.logfile).parent
 
-        if self.var.window_stim_psycho == 'yes':
-            self.path_stim_psycho = self.experiment_path / 'screenshots_stim_psycho' / f'subject-{self.var.subject_nr}'
-            Path(self.path_stim_psycho).mkdir(parents=True, exist_ok=True)
-        if self.var.window_stim_pil == 'yes':
-            self.path_stim_pil = self.experiment_path / 'screenshots_stim_pil' / f'subject-{self.var.subject_nr}'
-            Path(self.path_stim_pil).mkdir(parents=True, exist_ok=True)
-        if self.var.window_full_pil == 'yes':
-            self.path_full_pil = self.experiment_path / 'screenshots_full_pil' / f'subject-{self.var.subject_nr}'
-            Path(self.path_full_pil).mkdir(parents=True, exist_ok=True)
+        if self.window_stim_pil:
+            monitor = get_monitors()[0]
+            self.bbox_stim = (monitor.x, monitor.y,
+                              monitor.x + monitor.width,
+                              monitor.y + monitor.height)
 
-        monitor1 = get_monitors()[0]
-        self.x1 = monitor1.x
-        self.y1 = monitor1.y
-        self.x2 = monitor1.x + monitor1.width
-        self.y2 = monitor1.y + monitor1.height
+    def _init_var(self):
+        self.verbose = self.var.verbose == 'yes'
+        self.window_stim_psycho = self.var.window_stim_psycho == 'yes'
+        self.window_stim_pil = self.var.window_stim_pil == 'yes'
+        self.window_full_pil = self.var.window_full_pil == 'yes'
 
     def run(self):
         self.set_item_onset()
 
-        extension = os.path.splitext(str(self.var.filename_screenshot))[1].lower()
+        filename = str(self.var.filename_screenshot)
+        extension = Path(filename).suffix.lower()
         if Image.registered_extensions().get(extension) not in Image.SAVE:
-            raise OSException(f'Screenshot filename "{self.var.filename_screenshot}" needs an extension that determines the picture format, e.g. .png or .jpg')
+            raise OSException(f'Screenshot filename "{filename}" needs an extension that determines the picture format, e.g. .png or .jpg')
 
-        if self.var.window_stim_psycho == 'yes':
-            fname_stim_psycho =  self.path_stim_psycho / self.var.filename_screenshot
-            image_stim_psycho = self.experiment.window._getFrame()
-            image_stim_psycho.save(fname_stim_psycho)
-            self._show_message(f'Screenshot saved to: {fname_stim_psycho}')
-        if self.var.window_stim_pil == 'yes':
-            fname_stim_pil =  self.path_stim_pil / self.var.filename_screenshot
-            image_stim_pil = ImageGrab.grab(bbox=(self.x1, self.y1, self.x2, self.y2))
-            image_stim_pil.save(fname_stim_pil)
-            self._show_message(f'Screenshot saved to: {fname_stim_pil}')
-        if self.var.window_full_pil == 'yes':
-            fname_full_pil =  self.path_full_pil / self.var.filename_screenshot
-            image_full_pil = ImageGrab.grab(all_screens=True)
-            image_full_pil.save(fname_full_pil)
-            self._show_message(f'Screenshot saved to: {fname_full_pil}')
+        if self.window_stim_psycho:
+            self._save(self.experiment.window._getFrame(),
+                       'screenshots_stim_psycho', filename)
+        if self.window_stim_pil:
+            self._save(ImageGrab.grab(bbox=self.bbox_stim),
+                       'screenshots_stim_pil', filename)
+        if self.window_full_pil:
+            self._save(ImageGrab.grab(all_screens=True),
+                       'screenshots_full_pil', filename)
+
+    def _save(self, image, folder, filename):
+        # The folder is made in the run phase, because an earlier item may
+        # change subject_nr in its run phase
+        path = self.log_folder / folder / f'subject-{self.var.subject_nr}'
+        path.mkdir(parents=True, exist_ok=True)
+        fname = path / filename
+        image.save(fname)
+        self._show_message(f'Screenshot saved to: {fname}')
 
     def _show_message(self, message):
         oslogger.debug(message)
-        if self.verbose == 'yes':
+        if self.verbose:
             print(message)
 
 
@@ -97,3 +96,13 @@ class QtScreenshot(Screenshot, QtAutoPlugin):
     def __init__(self, name, experiment, script=None):
         Screenshot.__init__(self, name, experiment, script)
         QtAutoPlugin.__init__(self, __file__)
+
+    def edit_widget(self):
+        widget = super().edit_widget()
+        # auto_edit_widget() enables all checkboxes, so this is done after it
+        psychopy = self.var.canvas_backend == 'psycho'
+        self.checkbox_window_stim_psycho.setEnabled(psychopy)
+        self.checkbox_window_stim_psycho.setToolTip(
+            'Stimulus display (PsychoPy)' if psychopy
+            else 'Only available with the PsychoPy backend')
+        return widget
