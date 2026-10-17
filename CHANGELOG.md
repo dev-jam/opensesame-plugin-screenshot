@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- fixed regressions from 0.7.0: the "saved to" message shows the normalised log folder again, and the PsychoPy checkbox keeps its original tooltip with the PsychoPy backend
+- note on 0.7.0: the filename is read once per screenshot, so all captures get the same name; before 0.7.0 an expression such as `{clock.time()}` was evaluated per capture
+
 ## [0.7.1] - 2026-10-17
 
 - the version label in the item is read from the installed package, so the version is only set in `pyproject.toml`

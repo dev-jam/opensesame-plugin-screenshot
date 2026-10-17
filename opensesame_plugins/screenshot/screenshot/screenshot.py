@@ -18,6 +18,7 @@ along with OpenSesame.  If not, see <http://www.gnu.org/licenses/>.
 __author__ = "Bob Rosbag"
 __license__ = "GPLv3"
 
+import os
 from pathlib import Path
 from libopensesame.item import Item
 from libqtopensesame.items.qtautoplugin import QtAutoPlugin
@@ -44,7 +45,7 @@ class Screenshot(Item):
             oslogger.warning('Screenshot: stimulus display (PsychoPy) is skipped, it needs the PsychoPy backend')
             self.window_stim_psycho = False
 
-        self.log_folder = Path(self.var.logfile).parent
+        self.log_folder = Path(os.path.normpath(os.path.dirname(self.var.logfile)))
 
         if self.window_stim_pil:
             monitor = get_monitors()[0]
@@ -100,9 +101,11 @@ class QtScreenshot(Screenshot, QtAutoPlugin):
     def edit_widget(self):
         widget = super().edit_widget()
         # auto_edit_widget() enables all checkboxes, so this is done after it
+        checkbox = self.checkbox_window_stim_psycho
+        if not hasattr(self, '_tooltip_stim_psycho'):
+            self._tooltip_stim_psycho = checkbox.toolTip()
         psychopy = self.var.canvas_backend == 'psycho'
-        self.checkbox_window_stim_psycho.setEnabled(psychopy)
-        self.checkbox_window_stim_psycho.setToolTip(
-            'Stimulus display (PsychoPy)' if psychopy
-            else 'Only available with the PsychoPy backend')
+        checkbox.setEnabled(psychopy)
+        checkbox.setToolTip(self._tooltip_stim_psycho if psychopy
+                            else 'Only available with the PsychoPy backend')
         return widget
