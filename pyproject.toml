@@ -12,7 +12,7 @@ homepage = "https://github.com/dev-jam/opensesame-plugin-screenshot"
 repository = "https://github.com/dev-jam/opensesame-plugin-screenshot"
 
 [tool.poetry.dependencies]
-python = ">= 3.7"
+python = ">= 3.10"
 screeninfo = "*"
 
 [build-system]
