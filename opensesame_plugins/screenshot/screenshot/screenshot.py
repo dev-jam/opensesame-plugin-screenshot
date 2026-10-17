@@ -25,7 +25,7 @@ from libopensesame.exceptions import OSException
 from libopensesame.oslogging import oslogger
 from pathlib import Path
 import os
-from PIL import ImageGrab
+from PIL import Image, ImageGrab
 from screeninfo import get_monitors
 
 
@@ -65,6 +65,10 @@ class Screenshot(Item):
 
     def run(self):
         self.set_item_onset()
+
+        extension = os.path.splitext(str(self.var.filename_screenshot))[1].lower()
+        if Image.registered_extensions().get(extension) not in Image.SAVE:
+            raise OSException(f'Screenshot filename "{self.var.filename_screenshot}" needs an extension that determines the picture format, e.g. .png or .jpg')
 
         if self.var.window_stim_psycho == 'yes':
             fname_stim_psycho =  self.path_stim_psycho / self.var.filename_screenshot

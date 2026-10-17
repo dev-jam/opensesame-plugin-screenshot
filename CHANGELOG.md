@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- fixed unclear error when the filename is empty or has no or an unsupported extension
 
 ## [0.6.1] - 2025-09-12
 
