@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- fixed: since 0.7.0, the item stopped with a filename error when there was nothing to capture (all options off, or only the PsychoPy option with another backend); it does nothing again, as 0.6.1 did with all options off
+
 ## [0.7.2] - 2026-10-17
 
 - fixed regressions from 0.7.0: the "saved to" message shows the normalised log folder again, and the PsychoPy checkbox keeps its original tooltip with the PsychoPy backend

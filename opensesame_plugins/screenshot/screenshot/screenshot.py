@@ -62,6 +62,10 @@ class Screenshot(Item):
     def run(self):
         self.set_item_onset()
 
+        if not (self.window_stim_psycho or self.window_stim_pil
+                or self.window_full_pil):
+            return
+
         filename = str(self.var.filename_screenshot)
         extension = Path(filename).suffix.lower()
         if Image.registered_extensions().get(extension) not in Image.SAVE:
