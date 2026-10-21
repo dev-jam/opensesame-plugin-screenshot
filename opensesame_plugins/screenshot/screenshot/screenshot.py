@@ -68,25 +68,29 @@ class Screenshot(Item):
 
         filename = str(self.var.filename_screenshot)
         extension = Path(filename).suffix.lower()
-        if Image.registered_extensions().get(extension) not in Image.SAVE:
+        image_format = Image.registered_extensions().get(extension)
+        if image_format not in Image.SAVE:
             raise OSException(f'Screenshot filename "{filename}" needs an extension that determines the picture format, e.g. .png or .jpg')
 
         if self.window_stim_psycho:
             self._save(self.experiment.window._getFrame(),
-                       'screenshots_stim_psycho', filename)
+                       'screenshots_stim_psycho', filename, image_format)
         if self.window_stim_pil:
             self._save(ImageGrab.grab(bbox=self.bbox_stim),
-                       'screenshots_stim_pil', filename)
+                       'screenshots_stim_pil', filename, image_format)
         if self.window_full_pil:
             self._save(ImageGrab.grab(all_screens=True),
-                       'screenshots_full_pil', filename)
+                       'screenshots_full_pil', filename, image_format)
 
-    def _save(self, image, folder, filename):
+    def _save(self, image, folder, filename, image_format):
         # The folder is made in the run phase, because an earlier item may
         # change subject_nr in its run phase
         path = self.log_folder / folder / f'subject-{self.var.subject_nr}'
         path.mkdir(parents=True, exist_ok=True)
         fname = path / filename
+        # PIL captures are RGBA on macOS, which JPEG cannot store
+        if image_format == 'JPEG' and image.mode == 'RGBA':
+            image = image.convert('RGB')
         image.save(fname)
         self._show_message(f'Screenshot saved to: {fname}')
 
