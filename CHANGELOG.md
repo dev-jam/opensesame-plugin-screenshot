@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - fixed: since 0.7.0, the item stopped with a filename error when there was nothing to capture (all options off, or only the PsychoPy option with another backend); it does nothing again, as 0.6.1 did with all options off
 - fixed saving the PIL captures as JPEG on macOS (Pillow returns RGBA there, which JPEG can't store); they are converted to RGB for JPEG
+- fixed unclear "unexpected error" when PIL can't capture the screen (e.g. no X display), the stimulus display can't be found, or the screenshot can't be saved (e.g. a missing subfolder in the filename, or a picture format that doesn't support the image, such as `.blp`); these now give an error message that says what failed
 
 ## [0.7.2] - 2026-10-17
 

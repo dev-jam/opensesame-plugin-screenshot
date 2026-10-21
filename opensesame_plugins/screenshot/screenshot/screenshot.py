@@ -25,7 +25,7 @@ from libqtopensesame.items.qtautoplugin import QtAutoPlugin
 from libopensesame.exceptions import OSException
 from libopensesame.oslogging import oslogger
 from PIL import Image, ImageGrab
-from screeninfo import get_monitors
+from screeninfo import ScreenInfoError, get_monitors
 
 
 class Screenshot(Item):
@@ -48,7 +48,10 @@ class Screenshot(Item):
         self.log_folder = Path(os.path.normpath(os.path.dirname(self.var.logfile)))
 
         if self.window_stim_pil:
-            monitor = get_monitors()[0]
+            try:
+                monitor = get_monitors()[0]
+            except ScreenInfoError as e:
+                raise OSException(f'Screenshot: could not find the stimulus display: {e}') from e
             self.bbox_stim = (monitor.x, monitor.y,
                               monitor.x + monitor.width,
                               monitor.y + monitor.height)
@@ -76,22 +79,32 @@ class Screenshot(Item):
             self._save(self.experiment.window._getFrame(),
                        'screenshots_stim_psycho', filename, image_format)
         if self.window_stim_pil:
-            self._save(ImageGrab.grab(bbox=self.bbox_stim),
+            self._save(self._grab(bbox=self.bbox_stim),
                        'screenshots_stim_pil', filename, image_format)
         if self.window_full_pil:
-            self._save(ImageGrab.grab(all_screens=True),
+            self._save(self._grab(all_screens=True),
                        'screenshots_full_pil', filename, image_format)
+
+    def _grab(self, **kwargs):
+        try:
+            return ImageGrab.grab(**kwargs)
+        except OSError as e:
+            raise OSException(f'Screenshot: could not capture the screen with PIL: {e}') from e
 
     def _save(self, image, folder, filename, image_format):
         # The folder is made in the run phase, because an earlier item may
         # change subject_nr in its run phase
         path = self.log_folder / folder / f'subject-{self.var.subject_nr}'
-        path.mkdir(parents=True, exist_ok=True)
         fname = path / filename
         # PIL captures are RGBA on macOS, which JPEG cannot store
         if image_format == 'JPEG' and image.mode == 'RGBA':
             image = image.convert('RGB')
-        image.save(fname)
+        try:
+            path.mkdir(parents=True, exist_ok=True)
+            image.save(fname)
+        except (OSError, ValueError) as e:
+            # Pillow raises ValueError for some formats (e.g. BLP, PCX)
+            raise OSException(f'Screenshot could not be saved to {fname}: {e}') from e
         self._show_message(f'Screenshot saved to: {fname}')
 
     def _show_message(self, message):
