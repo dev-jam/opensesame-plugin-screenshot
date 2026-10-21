@@ -18,7 +18,7 @@ This plug-in has the following options:
 - *Stimulus display (PsychoPy)*: capture the PsychoPy window, saved in `screenshots_stim_psycho`. Only available with the PsychoPy backend.
 - *Stimulus display (PIL)*: capture the first monitor with PIL, saved in `screenshots_stim_pil`.
 - *Composite of all displays (PIL)*: capture all monitors with PIL, saved in `screenshots_full_pil`.
-- *Filename*: the filename with extension; the extension determines the picture format (`.png`, `.jpg`, etc.). Variables can be used, e.g. `trial_[count_trial_sequence].png`.
+- *Filename*: the filename with extension; the extension determines the picture format (`.png`, `.jpg`, etc.). Variables can be used, e.g. `trial_[count_trial_sequence].png`. The filename can't contain a folder.
 
 
 ## License

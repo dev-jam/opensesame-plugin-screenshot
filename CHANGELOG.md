@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - fixed the plugin failing to load in an OpenSesame installation without a Qt binding (e.g. opensesame-core 4.0 installed with pip); the runtime no longer needs Qt
 - the warning that the PsychoPy option is skipped with another backend is shown once per item instead of on every trial
 - code cleanup: removed the `tooltip` keys of the controls, which OpenSesame doesn't use
+- the filename can no longer contain a folder: an absolute path or `..` saved the screenshots outside the subject folder (with an absolute path, all captures went to the same file and overwrote each other), and a subfolder already failed
 
 ## [0.7.2] - 2026-10-17
 

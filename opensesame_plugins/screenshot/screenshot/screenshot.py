@@ -82,6 +82,10 @@ class Screenshot(Item):
         image_format = Image.registered_extensions().get(extension)
         if image_format not in Image.SAVE:
             raise OSException(f'Screenshot filename "{filename}" needs an extension that determines the picture format, e.g. .png or .jpg')
+        # A folder in the filename would save outside the subject folder; with
+        # an absolute path all captures would overwrite the same file
+        if Path(filename).parent != Path('.'):
+            raise OSException(f'Screenshot filename "{filename}" must be a filename without a folder')
 
         if self.window_stim_psycho:
             self._save(self.experiment.window._getFrame(),
