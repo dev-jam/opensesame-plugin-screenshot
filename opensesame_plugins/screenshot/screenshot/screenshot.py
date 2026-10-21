@@ -21,16 +21,11 @@ __license__ = "GPLv3"
 import os
 from pathlib import Path
 from libopensesame.item import Item
+from libqtopensesame.items.qtautoplugin import QtAutoPlugin
 from libopensesame.exceptions import OSException
 from libopensesame.oslogging import oslogger
 from PIL import Image, ImageGrab
 from screeninfo import ScreenInfoError, get_monitors
-try:
-    from libqtopensesame.items.qtautoplugin import QtAutoPlugin
-except ImportError:
-    # Without a Qt binding (e.g. opensesame-core 4.0 installed with pip)
-    # only the runtime class is needed
-    QtAutoPlugin = None
 
 
 class Screenshot(Item):
@@ -125,23 +120,20 @@ class Screenshot(Item):
             print(message)
 
 
-if QtAutoPlugin is not None:
+class QtScreenshot(Screenshot, QtAutoPlugin):
 
-    class QtScreenshot(Screenshot, QtAutoPlugin):
+    def __init__(self, name, experiment, script=None):
+        Screenshot.__init__(self, name, experiment, script)
+        QtAutoPlugin.__init__(self, __file__)
 
-        def __init__(self, name, experiment, script=None):
-            Screenshot.__init__(self, name, experiment, script)
-            QtAutoPlugin.__init__(self, __file__)
-
-        def edit_widget(self):
-            widget = super().edit_widget()
-            # auto_edit_widget() enables all checkboxes, so this is done
-            # after it
-            checkbox = self.checkbox_window_stim_psycho
-            if not hasattr(self, '_tooltip_stim_psycho'):
-                self._tooltip_stim_psycho = checkbox.toolTip()
-            psychopy = self.var.canvas_backend == 'psycho'
-            checkbox.setEnabled(psychopy)
-            checkbox.setToolTip(self._tooltip_stim_psycho if psychopy
-                                else 'Only available with the PsychoPy backend')
-            return widget
+    def edit_widget(self):
+        widget = super().edit_widget()
+        # auto_edit_widget() enables all checkboxes, so this is done after it
+        checkbox = self.checkbox_window_stim_psycho
+        if not hasattr(self, '_tooltip_stim_psycho'):
+            self._tooltip_stim_psycho = checkbox.toolTip()
+        psychopy = self.var.canvas_backend == 'psycho'
+        checkbox.setEnabled(psychopy)
+        checkbox.setToolTip(self._tooltip_stim_psycho if psychopy
+                            else 'Only available with the PsychoPy backend')
+        return widget

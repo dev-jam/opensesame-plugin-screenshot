@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- reverted the 0.7.3 change that let the plugin load without a Qt binding: OpenSesame always has Qt (its own plugins, e.g. `form_multiple_choice`, import it the same way), so the runtime imports the GUI class again like every other plugin
+
 ## [0.7.3] - 2026-10-21
 
 - fixed: since 0.7.0, the item stopped with a filename error when there was nothing to capture (all options off, or only the PsychoPy option with another backend); it does nothing again, as 0.6.1 did with all options off
