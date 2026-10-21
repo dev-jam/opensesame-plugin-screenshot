@@ -11,6 +11,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - fixed saving the PIL captures as JPEG on macOS (Pillow returns RGBA there, which JPEG can't store); they are converted to RGB for JPEG
 - fixed unclear "unexpected error" when PIL can't capture the screen (e.g. no X display), the stimulus display can't be found, or the screenshot can't be saved (e.g. a missing subfolder in the filename, or a picture format that doesn't support the image, such as `.blp`); these now give an error message that says what failed
 - fixed the plugin failing to load in an OpenSesame installation without a Qt binding (e.g. opensesame-core 4.0 installed with pip); the runtime no longer needs Qt
+- the warning that the PsychoPy option is skipped with another backend is shown once per item instead of on every trial
+- code cleanup: removed the `tooltip` keys of the controls, which OpenSesame doesn't use
 
 ## [0.7.2] - 2026-10-17
 

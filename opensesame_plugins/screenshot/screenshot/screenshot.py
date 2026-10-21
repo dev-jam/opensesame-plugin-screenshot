@@ -47,7 +47,10 @@ class Screenshot(Item):
         self._init_var()
 
         if self.window_stim_psycho and self.var.canvas_backend != 'psycho':
-            oslogger.warning('Screenshot: stimulus display (PsychoPy) is skipped, it needs the PsychoPy backend')
+            # prepare() runs on every iteration of a loop: warn only once
+            if not getattr(self, '_warned_stim_psycho', False):
+                oslogger.warning('Screenshot: stimulus display (PsychoPy) is skipped, it needs the PsychoPy backend')
+                self._warned_stim_psycho = True
             self.window_stim_psycho = False
 
         self.log_folder = Path(os.path.normpath(os.path.dirname(self.var.logfile)))
