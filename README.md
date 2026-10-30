@@ -21,6 +21,22 @@ This plug-in has the following options:
 - *Filename*: the filename with extension; the extension determines the picture format (`.png`, `.jpg`, etc.). Variables can be used, e.g. `trial_[count_trial_sequence].png`. The filename can't contain a folder.
 
 
+## Known issues
+
+Which capture method works depends on the operating system and the display server. Check the screenshots of a test run before you rely on them.
+
+| System | Stimulus display (PsychoPy) | Stimulus display and composite (PIL) |
+| --- | --- | --- |
+| Linux, X11 | works, except the first screenshot of the experiment | works |
+| Linux, Wayland | black images | works |
+| Windows | works | shows the desktop behind a fullscreen experiment, not the stimulus |
+
+- *Linux, X11, PsychoPy*: the first screenshot of the experiment can be corrupt (dark, with a diagonal line). Workaround: put a screenshot item with its own filename (e.g. `dummy.png`) at the start of the experiment, outside the trials, and ignore its screenshot.
+- *Linux, Wayland, PsychoPy*: all screenshots are black. Workaround: use the PIL options, or log in to an X11 session (e.g. "Ubuntu on Xorg").
+- *Windows, PIL*: the screenshots show the desktop behind the fullscreen experiment window. Workaround: use the PsychoPy option.
+- Without a graphics card (e.g. a virtual X server such as Xvfb, which uses Mesa's software renderer), PsychoPy screenshots are black too.
+
+
 ## License
 
 This software is distributed under the terms of the GNU General Public License 3. The full license should be included in the file `COPYING`, or can be obtained from:
