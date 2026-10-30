@@ -48,6 +48,13 @@ class Screenshot(Item):
                 self._warned_stim_psycho = True
             self.window_stim_psycho = False
 
+        if self.window_stim_psycho and not getattr(self.experiment, '_screenshot_front_read', False):
+            # Mesa on X11 (DRI3) fills its copy of the front buffer at the
+            # first read, which can be corrupt, and keeps it up to date from
+            # the next flip on: read once before the stimulus is shown
+            self.experiment.window._getFrame()
+            self.experiment._screenshot_front_read = True
+
         self.log_folder = Path(os.path.normpath(os.path.dirname(self.var.logfile)))
 
         if self.window_stim_pil:

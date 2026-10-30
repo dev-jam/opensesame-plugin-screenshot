@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - reverted the 0.7.3 change that let the plugin load without a Qt binding: OpenSesame always has Qt (its own plugins, e.g. `form_multiple_choice`, import it the same way), so the runtime imports the GUI class again like every other plugin
 - readme: added the known issues per system (PsychoPy on Linux X11 and Wayland, PIL on Windows) with workarounds
+- fixed the first PsychoPy screenshot of an experiment being corrupt on Linux with X11; the first screenshot item with the PsychoPy option reads the screen once when it is prepared, so a dummy screenshot item at the start of the experiment is no longer needed in most experiments (see the readme)
 
 ## [0.7.3] - 2026-10-21
 

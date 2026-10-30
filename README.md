@@ -27,11 +27,11 @@ Which capture method works depends on the operating system and the display serve
 
 | System | Stimulus display (PsychoPy) | Stimulus display and composite (PIL) |
 | --- | --- | --- |
-| Linux, X11 | works, except the first screenshot of the experiment | works |
+| Linux, X11 | works (see below for the first screenshot) | works |
 | Linux, Wayland | black images | works |
 | Windows | works | shows the desktop behind a fullscreen experiment, not the stimulus |
 
-- *Linux, X11, PsychoPy*: the first screenshot of the experiment can be corrupt (dark, with a diagonal line). Workaround: put a screenshot item with its own filename (e.g. `dummy.png`) at the start of the experiment, outside the trials, and ignore its screenshot.
+- *Linux, X11, PsychoPy*: the first screenshot of the experiment can be corrupt (dark, with a diagonal line). The plugin prevents this by reading the screen once when the first screenshot item is prepared, before the stimulus is shown. This doesn't help when the first screenshot item is prepared after its stimulus was shown, e.g. a screenshot item in a loop that directly follows the stimulus. Workaround: put a screenshot item with its own filename (e.g. `dummy.png`) at the start of the experiment, outside the trials, and ignore its screenshot.
 - *Linux, Wayland, PsychoPy*: all screenshots are black. Workaround: use the PIL options, or log in to an X11 session (e.g. "Ubuntu on Xorg").
 - *Windows, PIL*: the screenshots show the desktop behind the fullscreen experiment window. Workaround: use the PsychoPy option.
 - Without a graphics card (e.g. a virtual X server such as Xvfb, which uses Mesa's software renderer), PsychoPy screenshots are black too.
