@@ -1,0 +1,29 @@
+Packaging workflow
+------------------
+
+The branch debian/latest holds the packaging; upstream is the branch
+main, and each release has a tag X.Y.Z (the version in pyproject.toml).
+
+Build the release in debian/changelog:
+
+  gbp buildpackage -us -uc
+
+gbp makes the orig tarball from the tag (debian/gbp.conf). Or:
+
+  uscan --download-current-version
+  dpkg-buildpackage -us -uc
+
+uscan reads the tags with git (debian/watch, git mode).
+
+New upstream release X.Y.Z:
+
+  git merge X.Y.Z
+  dch -v X.Y.Z-1 "New upstream release."
+  gbp buildpackage -us -uc
+
+The run-time dependencies are in debian/control, not taken from the
+wheel (dh_python3 --no-guessing-deps): check them against
+pyproject.toml at each new release. OpenSesame and PsychoPy are not in
+Debian yet; add them to Depends when they are.
+
+ -- Bob Rosbag <debian@bobrosbag.nl>  Tue, 03 Nov 2026
