@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+- fixed: since 0.7.3, the plugin needs screeninfo 0.8 or newer (it imports `ScreenInfoError`, which older versions don't export: the plugin failed to load with screeninfo 0.7 or older); the dependency now requires it
+
 ## [0.8.0] - 2026-10-30
 
 - reverted the 0.7.3 change that let the plugin load without a Qt binding: OpenSesame always has Qt (its own plugins, e.g. `form_multiple_choice`, import it the same way), so the runtime imports the GUI class again like every other plugin
