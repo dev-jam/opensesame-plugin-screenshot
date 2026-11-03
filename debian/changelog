@@ -1,4 +1,4 @@
-opensesame-plugin-screenshot (0.8.1-1) unstable; urgency=medium
+opensesame-plugin-screenshot (0.8.1-1) trixie; urgency=medium
 
   * Initial release: packaging from source instead of wheel2deb.
 

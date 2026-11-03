@@ -4,22 +4,26 @@ Packaging workflow
 The branch debian/latest holds the packaging; upstream is the branch
 main, and each release has a tag X.Y.Z (the version in pyproject.toml).
 
+The packages are for my own repository; the distribution in
+debian/changelog is trixie (the suite sbuild builds for).
+
 Build the release in debian/changelog:
 
-  gbp buildpackage -us -uc
+  sbuild-local
 
-gbp makes the orig tarball from the tag (debian/gbp.conf). Or:
+It gets the orig tarball with uscan (debian/watch, git mode: it reads
+the tags with git) and builds for trixie with sbuild. Or with gbp,
+which makes the orig tarball from the tag (debian/gbp.conf):
 
-  uscan --download-current-version
-  dpkg-buildpackage -us -uc
-
-uscan reads the tags with git (debian/watch, git mode).
+  gbp buildpackage --git-builder="sbuild -d trixie"
 
 New upstream release X.Y.Z:
 
+  git checkout debian/latest
   git merge X.Y.Z
-  dch -v X.Y.Z-1 "New upstream release."
-  gbp buildpackage -us -uc
+  dch -v X.Y.Z-1 -D trixie "New upstream release."
+  git commit -am "new upstream release X.Y.Z"
+  sbuild-local
 
 The run-time dependencies are in debian/control, not taken from the
 wheel (dh_python3 --no-guessing-deps): check them against
