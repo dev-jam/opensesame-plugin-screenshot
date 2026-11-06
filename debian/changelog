@@ -1,3 +1,9 @@
+opensesame-plugin-screenshot (0.8.2-1) trixie; urgency=medium
+
+  * New upstream release.
+
+ -- Bob Rosbag <debian@bobrosbag.nl>  Fri, 06 Nov 2026 21:37:04 +0100
+
 opensesame-plugin-screenshot (0.8.1-1) trixie; urgency=medium
 
   * Initial release: packaging from source instead of wheel2deb.
