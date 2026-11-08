@@ -1,3 +1,9 @@
+opensesame-plugin-screenshot (0.8.3-1) trixie; urgency=medium
+
+  * New upstream release.
+
+ -- Bob Rosbag <debian@bobrosbag.nl>  Sun, 08 Nov 2026 17:04:01 +0100
+
 opensesame-plugin-screenshot (0.8.2-1) trixie; urgency=medium
 
   * New upstream release.
