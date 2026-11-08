@@ -1,7 +1,7 @@
 # Copyright (C) 2024-2026 Bob Rosbag <mail@bobrosbag.nl>
 # SPDX-License-Identifier: GPL-3.0-or-later
 
-"""Take screenshot of stimulus"""
+"""Screenshot - saves screenshots of the stimulus display or of all displays"""
 
 from .. import __version__
 

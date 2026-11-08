@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 - readme and package description: installation with pip, the description names the capture options, documentation link with https
+- item descriptions (shown for new items) say what each item does, in the same form for all items; items in saved experiments keep their description
 
 ## [0.8.2] - 2026-11-06
 
