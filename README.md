@@ -1,18 +1,18 @@
-OpenSesame Plug-in: Screenshot
+OpenSesame Plugin: Screenshot
 ==========
 
-*An OpenSesame plug-in for saving screenshots of stimuli and other screens within an experiment.*  
+*An OpenSesame plugin for saving screenshots of stimuli and other screens within an experiment.*  
 
 Copyright (C) 2024-2026 Bob Rosbag  
 
 
 ## About
 
-This plug-in saves screenshots of stimuli and other screens within an experiment.
+This plugin saves screenshots of stimuli and other screens within an experiment.
 
 The screenshots are saved in the folder of the log file, in a subfolder per capture method and subject, for example `screenshots_stim_psycho/subject-1/filename.png`.
 
-This plug-in has the following options:
+This plugin has the following options:
 
 - *Verbose mode*: print the path of each saved screenshot.
 - *Stimulus display (PsychoPy)*: capture the PsychoPy window, saved in `screenshots_stim_psycho`. Only available with the PsychoPy backend.
@@ -37,17 +37,24 @@ Which capture method works depends on the operating system and the display serve
 - Without a graphics card (e.g. a virtual X server such as Xvfb, which uses Mesa's software renderer), PsychoPy screenshots are black too.
 
 
+## Installation
+
+Install the plugin with pip, in the Python environment of OpenSesame:
+
+    pip install opensesame-plugin-screenshot
+
+
 ## License
 
 This plugin is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version (GPL-3.0-or-later).
 
 The full license text is in the file `COPYING`, and is also available at <https://www.gnu.org/licenses/gpl-3.0.html>.
 
-This plug-in contains works of others. Icons are derivatives of the Faenza icon theme.
+This plugin contains works of others. Icons are derivatives of the Faenza icon theme.
 
   
 ## Documentation
 
 Installation instructions and documentation on OpenSesame are available on the documentation website:
 
-- <http://osdoc.cogsci.nl/>
+- <https://osdoc.cogsci.nl/>
